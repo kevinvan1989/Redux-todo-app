@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import Axios from 'axios'
+import TodoList from './Components/TodoList';
+import './styles/screen.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount(){
+    Axios.get('http://5de80f759578cb001487adea.mockapi.io/Todo')
+    .then(response =>{
+      this.props.getData(response.data);
+    })
+  }
+
+  render() {
+    const {data} = this.props;
+
+    // Attention: watch out for undefined default state!!!!!
+    return (
+      <TodoList todos={data} />
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    data: state
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getData: todolist => dispatch({type: "FETCH_DATA", payload: todolist})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

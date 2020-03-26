@@ -1,0 +1,17 @@
+.todo-item{
+  background: #22c1c7;
+  margin-top: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.btn-picto {
+  border: none;
+  background: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+}

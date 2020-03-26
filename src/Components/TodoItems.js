@@ -1,33 +1,44 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { toggleTodo, deleteTodo } from "../Redux/Actions/todoActions";
 
 class TodoItems extends Component {
   render() {
-    const {id, name, done} = this.props.todo;
-    const {toggleDone} = this.props
+    const { id, name, done } = this.props.todo;
+    const { toggleDone, deleteItem } = this.props;
 
-    console.log('item', this.props)
+    console.log("item", this.props);
     return (
       <div className="todo-item">
         <p>{name}</p>
-        <button type="button" className="btn-picto" onClick={() => toggleDone(id)}>
+        <div>
+          <button
+            type="button"
+            className="btn-picto"
+            onClick={() => toggleDone(id)}
+          >
             <i aria-hidden="true" className="material-icons">
               {done ? "check_box" : "check_box_outline_blank"}
             </i>
-          </button>        
+          </button>
+          <button className="btn btn-danger" onClick={() => deleteItem(id)}>
+            delete
+          </button>
+        </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return {state}
-}
+  return { state };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleDone: id => dispatch({type: "TOGGLE_TODO", payload: id})
-  }
-}
+    toggleDone: id => dispatch(toggleTodo(id)),
+    deleteItem: id => dispatch(deleteTodo(id))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItems);

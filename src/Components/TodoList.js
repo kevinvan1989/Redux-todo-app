@@ -9,6 +9,7 @@ export default class TodoList extends Component {
 
     return (
       <div className="todo-list">
+      <h1>Todos</h1>
         {
           todos.map((todo, i) => {
             return <TodoItems todo={todo} key={i}/>

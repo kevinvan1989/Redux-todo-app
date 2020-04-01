@@ -1,12 +1,19 @@
 import Axios from "axios";
 
-export const toggleTodo = id => {
-  return { type: "TOGGLE_TODO", payload: id };
+export const toggleTodo = (id, done) => {
+  return dispatch => { 
+    Axios.put(`https://5e093602434a370014168f5b.mockapi.io/todo/${id}`, {
+      done: !done
+    }).then(
+      console.log(done),
+      dispatch({ type: "TOGGLE_TODO", payload: id })
+    )
+  }
 };
 
-export const toggleTodoItem = id => {
-  return { type: "TOGGLE_TODO", payload: id };
-};
+// export const toggleTodoItem = id => {
+//   return { type: "TOGGLE_TODO", payload: id };
+// };
 
 export function deleteTodo(id) {
   return function(dispatch) {

@@ -7,7 +7,7 @@ class TodoItems extends Component {
     const { id, name, done } = this.props.todo;
     const { toggleDone, deleteItem } = this.props;
 
-    console.log("item", this.props);
+    console.log("item", this.props.todo);
     return (
       <div className="todo-item">
         <p>{name}</p>
@@ -15,7 +15,7 @@ class TodoItems extends Component {
           <button
             type="button"
             className="btn-picto"
-            onClick={() => toggleDone(id)}
+            onClick={() => toggleDone(id, done)}
           >
             <i aria-hidden="true" className="material-icons">
               {done ? "check_box" : "check_box_outline_blank"}
@@ -36,7 +36,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleDone: id => dispatch(toggleTodo(id)),
+    toggleDone: (id, done) => dispatch(toggleTodo(id, done)),
     deleteItem: id => dispatch(deleteTodo(id))
   };
 };
